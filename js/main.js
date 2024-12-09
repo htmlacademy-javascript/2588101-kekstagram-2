@@ -1,5 +1,5 @@
 
-const descriptionList = [
+const DESCRIPTION_LIST = [
   'Фотографии — это свидетельство о том, что мы жили',
   'Остановить время в одном кадре',
   'В объектив всегда видна правда — это как детектор лжи',
@@ -11,7 +11,7 @@ const descriptionList = [
   'Вся красота мира в одной картинке',
 ];
 
-const messages = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -20,7 +20,7 @@ const messages = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const names = [
+const NAMES = [
   'Иван',
   'Хуан Себастьян',
   'Мария',
@@ -57,8 +57,9 @@ const createIdGenerator = () => {
     return lastGeneratedId;
   };
 };
-const commentsId = createIdGenerator();
+const commentId = createIdGenerator();
 const photoId = createIdGenerator();
+const imgUrl = createIdGenerator();
 
 // console.log(commentsId());
 // console.log(photoId());
@@ -72,23 +73,23 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-const generateCommentsArray = () => ({
-  commentsId: commentsId(),
+const generateComment = () => ({
+  commentId: commentId(),
   avatar: `img/avatar-${ getRandomInteger(MIN_AVATAR, MAX_AVATAR) }.svg`,
-  message: getRandomArrayElement(messages),
-  name: getRandomArrayElement(names),
+  message: getRandomArrayElement(MESSAGES),
+  name: getRandomArrayElement(NAMES),
 });
 
-const generatePhotoDescriptionArray = () => ({
+const generatePhotoDescription = () => ({
   photoId: photoId(),
-  url: `photos/${ getRandomInteger(MIN_URL, MAX_URL) }.jpg`,
-  description: getRandomArrayElement(descriptionList),
+  url: `photos/${ imgUrl() }.jpg`,
+  description: getRandomArrayElement(DESCRIPTION_LIST),
   likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
-  comments: Array.from({length: getRandomInteger(MIN_COMMENTS, MAX_COMMENTS)}, generateCommentsArray)
+  comments: Array.from({length: getRandomInteger(MIN_COMMENTS, MAX_COMMENTS)}, generateComment)
 });
 
-const similarPhotoDescriptionArrays = Array.from({length: PHOTO_DESCRIPTION_COUNT}, generatePhotoDescriptionArray);
+const similarPhotoDescription = Array.from({length: PHOTO_DESCRIPTION_COUNT}, generatePhotoDescription);
 
-// console.log(generatePhotoDescriptionArray());
+// console.log(generatePhotoDescription());
 
-// console.log(similarPhotoDescriptionArrays);
+// console.log(similarPhotoDescription);
