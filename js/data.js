@@ -33,19 +33,10 @@ const NAMES = [
 ];
 
 const PHOTO_DESCRIPTION_COUNT = 25;
-
-const MIN_PHOTO_ID = 1;
-const MAX_PHOTO_ID = 25;
-
-const MIN_URL = 1;
-const MAX_URL = 25;
-
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
-
 const MIN_COMMENTS = 0;
 const MAX_COMMENTS = 30;
-
 const MIN_AVATAR = 1;
 const MAX_AVATAR = 6;
 
@@ -53,21 +44,21 @@ const commentId = createIdGenerator();
 const photoId = createIdGenerator();
 const imgUrl = createIdGenerator();
 
-const generateComment = () => ({
+const createComment = () => ({
   commentId: commentId(),
   avatar: `img/avatar-${ getRandomInteger(MIN_AVATAR, MAX_AVATAR) }.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
 
-const generatePhotoDescription = () => ({
+const createPhotoDescription = () => ({
   photoId: photoId(),
   url: `photos/${ imgUrl() }.jpg`,
   description: getRandomArrayElement(DESCRIPTION_LIST),
   likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
-  comments: Array.from({length: getRandomInteger(MIN_COMMENTS, MAX_COMMENTS)}, generateComment)
+  comments: Array.from({length: getRandomInteger(MIN_COMMENTS, MAX_COMMENTS)}, createComment)
 });
 
-const generatePhotoDescriptionArray = () => Array.from({length: PHOTO_DESCRIPTION_COUNT}, generatePhotoDescription);
+const createPhotoDescriptionArray = () => Array.from({length: PHOTO_DESCRIPTION_COUNT}, createPhotoDescription);
 
-export {generatePhotoDescriptionArray};
+export {createPhotoDescriptionArray};
