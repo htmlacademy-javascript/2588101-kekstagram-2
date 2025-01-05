@@ -29,3 +29,18 @@ const exctractNumbers = (string) => {
 
 exctractNumbers ('2023 Год');
 
+
+const getMinutes = (string) => {
+  const [hour, minutes] = string.split(':');
+  return hour * 60 + (+minutes);
+};
+
+const isMeetingRelevant = (startWork, endWork, meetingStart, meetingDuration) =>
+
+  getMinutes(startWork) <= getMinutes(meetingStart) && (getMinutes(meetingStart) + meetingDuration) <= getMinutes(endWork);
+
+isMeetingRelevant('08:00', '17:30', '14:00', 90); // true
+isMeetingRelevant('8:0', '10:0', '8:0', 120); // true
+isMeetingRelevant('08:00', '14:30', '14:00', 90); // false
+isMeetingRelevant('14:00', '17:30', '08:0', 90); // false
+isMeetingRelevant('8:00', '17:30', '08:00', 900); // false
