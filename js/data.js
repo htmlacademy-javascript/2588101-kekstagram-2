@@ -45,14 +45,14 @@ const photoId = createIdGenerator();
 const imgUrl = createIdGenerator();
 
 const createComment = () => ({
-  commentId: commentId(),
+  id: commentId(),
   avatar: `img/avatar-${ getRandomInteger(MIN_AVATAR, MAX_AVATAR) }.svg`,
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(NAMES),
 });
 
 const createPhotoDescription = () => ({
-  photoId: photoId(),
+  id: photoId(),
   url: `photos/${ imgUrl() }.jpg`,
   description: getRandomArrayElement(DESCRIPTION_LIST),
   likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
