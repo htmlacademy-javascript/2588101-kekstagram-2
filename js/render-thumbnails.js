@@ -5,17 +5,21 @@ const pictureTemplate = document.querySelector('#picture').content.querySelector
 const thumbnailFragment = document.createDocumentFragment();
 const similarPictures = createPhotoDescriptionArray();
 
-similarPictures.forEach(({url, description, comments, likes}) => {
+similarPictures.forEach(({id, url, description, comments, likes}) => {
 
   const thumbnail = pictureTemplate.cloneNode(true);
-  const pictureImg = thumbnail.querySelector('.picture__img');
+  thumbnail.id = id;
 
+  const pictureImg = thumbnail.querySelector('.picture__img');
   pictureImg.src = url;
   pictureImg.alt = description;
-  thumbnail.querySelector('.picture__comments').textContent = comments.length;
-  thumbnail.querySelector('.picture__likes').textContent = likes;
 
-  thumbnailFragment.append(thumbnail);
+  thumbnail.querySelector('.picture__likes').textContent = likes;
+  thumbnail.querySelector('.picture__comments').textContent = comments.length;
+
+  thumbnailFragment.appendChild(thumbnail);
 });
 
-pictureList.append(thumbnailFragment);
+pictureList.appendChild(thumbnailFragment);
+
+export {pictureList, similarPictures};

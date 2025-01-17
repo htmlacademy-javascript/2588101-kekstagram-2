@@ -1,4 +1,2 @@
-import {createPhotoDescriptionArray} from './data.js';
-import './thumbnails.js';
-
-createPhotoDescriptionArray();
+import './render-thumbnails.js';
+import './render-big-picture.js';
