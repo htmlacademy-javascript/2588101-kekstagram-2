@@ -10,6 +10,11 @@ const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const bigPictureDescription = bigPicture.querySelector('.social__caption');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
 
+// закрытие большого фото по клику
+const onCloseButtonClick = (evt) => {
+  evt.preventDefault();
+  closeBigPicture();
+};
 
 // закрытие большого фото по Escape
 const onEscapeKeydown = (evt) => {
@@ -24,12 +29,9 @@ function closeBigPicture () {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscapeKeydown);
+  closeButton.removeEventListener('click', onCloseButtonClick);
   clearComments();
 }
-
-closeButton.addEventListener('click', () => {
-  closeBigPicture();
-});
 
 // заполнение большого фото данными
 const createPictureDescription = ({url, description, likes}) => {
@@ -47,6 +49,7 @@ function openBigPicture (evt) {
     bigPicture.classList.remove('hidden');
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', onEscapeKeydown);
+    closeButton.addEventListener('click', onCloseButtonClick);
 
     createPictureDescription(currentPicture);
     renderComments(currentPicture.comments);
