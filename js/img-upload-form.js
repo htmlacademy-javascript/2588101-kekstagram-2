@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
 import {error, isHashtagInputValid} from './hashtag-validity.js';
+import {resetSlider} from './img-effects.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -10,7 +11,6 @@ const imgUploadCancel = uploadForm.querySelector('.img-upload__cancel');
 
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
-
 
 // закрытие фото по клику
 const onImgUploadCancelClick = () => {
@@ -48,6 +48,7 @@ const onFormSubmit = (evt) => {
 
 uploadForm.addEventListener('submit', onFormSubmit);
 
+
 // функция удаления обработчиков при закрытии большого фото и сброс значения
 function closePhotoEditor () {
   imgUpload.classList.add('hidden');
@@ -56,6 +57,7 @@ function closePhotoEditor () {
   imgUploadCancel.removeEventListener('click', onImgUploadCancelClick);
   uploadForm.removeEventListener('submit', onFormSubmit);
   imgUploadInput.value = '';
+  resetSlider();
 }
 
 // открытие окна редактора по событию change
@@ -75,4 +77,4 @@ pristine.addValidator(commentInput, (value) => {
 
 pristine.addValidator(hashtagInput, isHashtagInputValid, error, 2, false);
 
-export {openPhotoEditor};
+export {openPhotoEditor, uploadForm};
