@@ -1,6 +1,8 @@
 import {isEscapeKey} from './util.js';
 import {error, isHashtagInputValid} from './hashtag-validity.js';
 import {resetSlider} from './img-effects.js';
+import {sendData} from './api.js';
+import {appendNotification} from './notifications.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -12,12 +14,29 @@ const imgUploadCancel = uploadForm.querySelector('.img-upload__cancel');
 const hashtagInput = uploadForm.querySelector('.text__hashtags');
 const commentInput = uploadForm.querySelector('.text__description');
 
-// закрытие фото по клику
+const formSubmitButton = uploadForm.querySelector('.img-upload__submit');
+const successTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Сохраняю...',
+};
+
+const disabledButton = (text) => {
+  formSubmitButton.disabled = true;
+  formSubmitButton.textContent = text;
+};
+
+const enabledButton = (text) => {
+  formSubmitButton.disabled = false;
+  formSubmitButton.textContent = text;
+};
+
 const onImgUploadCancelClick = () => {
   closePhotoEditor();
 };
 
-// закрытие фото по Escape
 const onEscapeKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -36,20 +55,28 @@ const pristine = new Pristine (uploadForm, {
   errorTextClass: 'img-upload__field-wrapper--error',
 });
 
-// не позволяет отправить форму с ошибками на сервер
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
+const sendFormData = async (formData) => {
 
   if (pristine.validate()) {
-    hashtagInput.value = hashtagInput.value.trim().replaceAll(/\s+/g, ' ');
-    uploadForm.submit();
+    disabledButton(SubmitButtonText.SENDING);
+    try {
+      await sendData(new FormData(formData));
+      appendNotification(successTemplate, closePhotoEditor);
+    } catch (err) {
+      appendNotification(errorTemplate);
+    } finally {
+      enabledButton(SubmitButtonText.IDLE);
+    }
   }
+};
+
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+  sendFormData(evt.target);
 };
 
 uploadForm.addEventListener('submit', onFormSubmit);
 
-
-// функция удаления обработчиков при закрытии большого фото и сброс значения
 function closePhotoEditor () {
   imgUpload.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -58,9 +85,10 @@ function closePhotoEditor () {
   uploadForm.removeEventListener('submit', onFormSubmit);
   imgUploadInput.value = '';
   resetSlider();
+  uploadForm.reset();
+  pristine.reset();
 }
 
-// открытие окна редактора по событию change
 const openPhotoEditor = () => {
   imgUploadInput.addEventListener('change', () => {
     imgUpload.classList.remove('hidden');
