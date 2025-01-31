@@ -1,4 +1,4 @@
-import {pictureList, similarPictures} from './render-thumbnails.js';
+import {pictureList} from './render-thumbnails.js';
 import {isEscapeKey} from './util.js';
 import {renderComments, clearComments} from './render-comments.js';
 
@@ -10,13 +10,20 @@ const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const bigPictureDescription = bigPicture.querySelector('.social__caption');
 const bigPictureLikes = bigPicture.querySelector('.likes-count');
 
-// закрытие большого фото по клику
+let photos = [];
+
+const savePhotos = (dataPhotos) => {
+  photos = dataPhotos;
+  return photos;
+};
+
+const getPhotoById = (id) => photos.find((photo) => photo.id === id);
+
 const onCloseButtonClick = (evt) => {
   evt.preventDefault();
   closeBigPicture();
 };
 
-// закрытие большого фото по Escape
 const onEscapeKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -24,7 +31,6 @@ const onEscapeKeydown = (evt) => {
   }
 };
 
-// функция удаления обработчика при закрытии большого фото
 function closeBigPicture () {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -33,18 +39,16 @@ function closeBigPicture () {
   clearComments();
 }
 
-// заполнение большого фото данными
 const createPictureDescription = ({url, description, likes}) => {
   bigPictureImg.src = url;
   bigPictureDescription.textContent = description;
   bigPictureLikes.textContent = likes;
 };
 
-// открытие большого фото по клику на соответствующую миниатюру и заполнение комментариями
 function openBigPicture (evt) {
   if (evt.target.closest('.picture')) {
     evt.preventDefault();
-    const currentPicture = similarPictures.find((item) => item.id === Number(evt.target.parentElement.id));
+    const currentPicture = getPhotoById(Number(evt.target.parentElement.id));
 
     bigPicture.classList.remove('hidden');
     document.body.classList.add('modal-open');
@@ -57,3 +61,5 @@ function openBigPicture (evt) {
 }
 
 pictureList.addEventListener('click', openBigPicture);
+
+export {savePhotos};
