@@ -18,6 +18,7 @@ const renderSimilarList = (dataPhotos) => {
 
     thumbnailFragment.appendChild(thumbnail);
   });
+  pictureList.querySelectorAll('.picture').forEach((item) => item.remove());
   pictureList.appendChild(thumbnailFragment);
 };
 
