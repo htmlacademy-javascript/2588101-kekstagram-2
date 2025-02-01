@@ -3,6 +3,7 @@ import {error, isHashtagInputValid} from './hashtag-validity.js';
 import {resetSlider} from './img-effects.js';
 import {sendData} from './api.js';
 import {appendNotification} from './notifications.js';
+import {upLoadFile} from './img-upload.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
@@ -95,6 +96,8 @@ const openPhotoEditor = () => {
     body.classList.add('modal-open');
     imgUploadCancel.addEventListener('click', onImgUploadCancelClick);
     document.addEventListener('keydown', onEscapeKeydown);
+
+    upLoadFile();
   });
 };
 
