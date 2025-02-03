@@ -1,5 +1,5 @@
 import {isEscapeKey} from './util.js';
-import {error, isHashtagInputValid} from './hashtag-validity.js';
+import {showError, isHashtagInputValid} from './hashtag-validity.js';
 import {resetSlider} from './img-effects.js';
 import {sendData} from './api.js';
 import {appendNotification} from './notifications.js';
@@ -106,6 +106,6 @@ pristine.addValidator(commentInput, (value) => {
   return isValid;
 }, 'длина комментария не больше 140 символов');
 
-pristine.addValidator(hashtagInput, isHashtagInputValid, error, 2, false);
+pristine.addValidator(hashtagInput, isHashtagInputValid, showError, 2, false);
 
 export {openPhotoEditor, uploadForm};

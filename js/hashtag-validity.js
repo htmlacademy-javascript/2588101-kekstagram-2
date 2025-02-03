@@ -4,7 +4,7 @@ const MAX_SYMBOLS = 20;
 
 let errorMessage = '';
 
-const error = () => errorMessage;
+const showError = () => errorMessage;
 
 const isHashtagInputValid = (value) => {
   errorMessage = '';
@@ -55,4 +55,4 @@ const isHashtagInputValid = (value) => {
   });
 };
 
-export {error, isHashtagInputValid};
+export {showError, isHashtagInputValid};
