@@ -1,3 +1,5 @@
+const COUNT_STEP = 5;
+
 const bigPicture = document.querySelector('.big-picture');
 const commentList = bigPicture.querySelector('.social__comments');
 const commentTemplate = commentList.querySelector('.social__comment');
@@ -7,7 +9,6 @@ const commentShownCount = bigPicture.querySelector('.social__comment-shown-count
 
 commentList.innerHTML = '';
 
-const COUNT_STEP = 5;
 let currentCount = 0;
 let comments = [];
 

@@ -5,6 +5,11 @@ import {sendData} from './api.js';
 import {appendNotification} from './notifications.js';
 import {upLoadFile} from './img-upload.js';
 
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Сохраняю...',
+};
+
 const uploadForm = document.querySelector('.img-upload__form');
 const body = document.querySelector('body');
 
@@ -18,11 +23,6 @@ const commentInput = uploadForm.querySelector('.text__description');
 const formSubmitButton = uploadForm.querySelector('.img-upload__submit');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-
-const SubmitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Сохраняю...',
-};
 
 const disabledButton = (text) => {
   formSubmitButton.disabled = true;

@@ -1,7 +1,9 @@
 import {debounce} from './util.js';
 import {renderSimilarList} from './render-thumbnails.js';
 
-const filtersContainer = document.querySelector('.img-filters');
+const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
+const MAX_RANDOM_PHOTO_COUNT = 10;
+const RERENDER_DELAY = 500;
 
 const FILTER = {
   default: 'filter-default',
@@ -14,9 +16,7 @@ const FUNCTION = {
   getDiscussed: (a, b) => b.comments.length - a.comments.length,
 };
 
-const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
-const MAX_RANDOM_PHOTO_COUNT = 10;
-const RERENDER_DELAY = 500;
+const filtersContainer = document.querySelector('.img-filters');
 
 let currentFilter = FILTER.default;
 let pictures = [];

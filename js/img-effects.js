@@ -1,7 +1,6 @@
 import {uploadForm} from './img-upload-form';
 
 const SCALE_STEP = 0.25;
-let scale = 1;
 
 const EFFECT = {
   none: { min: 0, max: 0, step: 0, unit: '', filter: 'none' },
@@ -11,6 +10,8 @@ const EFFECT = {
   phobos: { min: 0, max: 3, step: 0.1, unit: 'px', filter: 'blur' },
   heat: { min: 1, max: 3, step: 0.1, unit: '', filter: 'brightness' },
 };
+
+let scale = 1;
 
 const imgUploadPreview = uploadForm.querySelector('.img-upload__preview img');
 const smallerScaleButton = uploadForm.querySelector('.scale__control--smaller');
