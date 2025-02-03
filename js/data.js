@@ -1,6 +1,6 @@
 import {createIdGenerator, getRandomInteger, getRandomArrayElement} from './util.js';
 
-const DESCRIPTION_LIST = [
+const DESCRIPTIONS_LIST = [
   'Фотографии — это свидетельство о том, что мы жили',
   'Остановить время в одном кадре',
   'В объектив всегда видна правда — это как детектор лжи',
@@ -54,7 +54,7 @@ const createComment = () => ({
 const createPhotoDescription = () => ({
   id: photoId(),
   url: `photos/${ imgUrl() }.jpg`,
-  description: getRandomArrayElement(DESCRIPTION_LIST),
+  description: getRandomArrayElement(DESCRIPTIONS_LIST),
   likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
   comments: Array.from({length: getRandomInteger(MIN_COMMENTS, MAX_COMMENTS)}, createComment)
 });

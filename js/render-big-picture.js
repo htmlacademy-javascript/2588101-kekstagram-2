@@ -1,4 +1,4 @@
-import {pictureList} from './render-thumbnails.js';
+import {picturesList} from './render-thumbnails.js';
 import {isEscapeKey} from './util.js';
 import {renderComments, clearComments} from './render-comments.js';
 
@@ -60,6 +60,6 @@ function openBigPicture (evt) {
   }
 }
 
-pictureList.addEventListener('click', openBigPicture);
+picturesList.addEventListener('click', openBigPicture);
 
 export {savePhotos};
