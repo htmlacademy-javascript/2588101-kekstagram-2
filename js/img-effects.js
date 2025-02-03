@@ -1,7 +1,6 @@
 import {uploadForm} from './img-upload-form';
 
 const SCALE_STEP = 0.25;
-let scale = 1;
 
 const EFFECT = {
   none: { min: 0, max: 0, step: 0, unit: '', filter: 'none' },
@@ -11,6 +10,8 @@ const EFFECT = {
   phobos: { min: 0, max: 3, step: 0.1, unit: 'px', filter: 'blur' },
   heat: { min: 1, max: 3, step: 0.1, unit: '', filter: 'brightness' },
 };
+
+let scale = 1;
 
 const imgUploadPreview = uploadForm.querySelector('.img-upload__preview img');
 const smallerScaleButton = uploadForm.querySelector('.scale__control--smaller');
@@ -23,7 +24,6 @@ const effectInput = uploadForm.querySelector('.effect-level__value');
 const effectSlider = uploadForm.querySelector('.effect-level__slider');
 const sliderContainer = uploadForm.querySelector('.img-upload__effect-level');
 
-// уменьшаем размер фото в превью и меняем размер в %
 const onSmallerScaleButtonClick = () => {
   if (scale > SCALE_STEP) {
     scale -= SCALE_STEP;
@@ -34,7 +34,6 @@ const onSmallerScaleButtonClick = () => {
 
 smallerScaleButton.addEventListener('click', onSmallerScaleButtonClick);
 
-// увеличиваем размер фото в превью и меняем размер в %
 const onBiggerScaleButtonClick = () => {
   if (scale < 1) {
     scale += SCALE_STEP;
@@ -44,7 +43,6 @@ const onBiggerScaleButtonClick = () => {
 };
 
 biggerScaleButton.addEventListener('click', onBiggerScaleButtonClick);
-
 
 let currentEffect = 'none';
 
@@ -68,7 +66,6 @@ noUiSlider.create(effectSlider, {
 
 sliderContainer.classList.add('hidden');
 
-// переключение видимости ползунка
 const toggleSliderVisibility = () => {
   if (currentEffect !== 'none') {
     sliderContainer.classList.remove('hidden');

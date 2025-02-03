@@ -1,4 +1,4 @@
-const pictureList = document.querySelector('.pictures');
+const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const renderSimilarList = (dataPhotos) => {
@@ -18,8 +18,8 @@ const renderSimilarList = (dataPhotos) => {
 
     thumbnailFragment.appendChild(thumbnail);
   });
-  pictureList.querySelectorAll('.picture').forEach((item) => item.remove());
-  pictureList.appendChild(thumbnailFragment);
+  picturesList.querySelectorAll('.picture').forEach((item) => item.remove());
+  picturesList.appendChild(thumbnailFragment);
 };
 
-export {pictureList, renderSimilarList};
+export {picturesList, renderSimilarList};

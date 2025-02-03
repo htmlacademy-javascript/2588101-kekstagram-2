@@ -1,7 +1,9 @@
 import {debounce} from './util.js';
 import {renderSimilarList} from './render-thumbnails.js';
 
-const filtersContainer = document.querySelector('.img-filters');
+const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
+const MAX_RANDOM_PHOTO_COUNT = 10;
+const RERENDER_DELAY = 500;
 
 const FILTER = {
   default: 'filter-default',
@@ -10,13 +12,11 @@ const FILTER = {
 };
 
 const FUNCTION = {
-  random: () => 0.5 - Math.random(),
-  discussed: (a, b) => b.comments.length - a.comments.length,
+  getRandom: () => 0.5 - Math.random(),
+  getDiscussed: (a, b) => b.comments.length - a.comments.length,
 };
 
-const ACTIVE_BUTTON_CLASS = 'img-filters__button--active';
-const MAX_RANDOM_PHOTO_COUNT = 10;
-const RERENDER_DELAY = 500;
+const filtersContainer = document.querySelector('.img-filters');
 
 let currentFilter = FILTER.default;
 let pictures = [];
@@ -28,10 +28,10 @@ const getFilterData = () => {
 
   switch (currentFilter) {
     case FILTER.random:
-      filteredPictures = pictures.toSorted(FUNCTION.random).slice(0, MAX_RANDOM_PHOTO_COUNT);
+      filteredPictures = pictures.toSorted(FUNCTION.getRandom).slice(0, MAX_RANDOM_PHOTO_COUNT);
       break;
     case FILTER.discussed:
-      filteredPictures = pictures.toSorted(FUNCTION.discussed);
+      filteredPictures = pictures.toSorted(FUNCTION.getDiscussed);
       break;
     default:
       filteredPictures = pictures;
@@ -56,10 +56,10 @@ function onFilterChange (evt) {
   getFilterData();
 }
 
-const configFilters = (picturesData) => {
+const switchFilters = (picturesData) => {
   filtersContainer.classList.remove('img-filters--inactive');
   filtersContainer.addEventListener('click', onFilterChange);
   pictures = picturesData;
 };
 
-export {configFilters};
+export {switchFilters};

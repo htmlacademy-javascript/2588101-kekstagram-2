@@ -15,15 +15,37 @@ const showErrorMessage = () => {
   }, REMOVE_MESSAGE_TIMEOUT);
 };
 
-const closeNotification = (evt) => {
+const closePopup = () => {
+  const existElement = document.querySelector('.success') || document.querySelector('.error');
+  existElement.remove();
+};
+
+const onButtonClick = (evt) => {
+  evt.stopPropagation();
+  const closeButton = document.querySelector('button');
+
+  if (evt.target === closeButton) {
+    body.removeEventListener('click', onButtonClick);
+  }
+  closePopup();
+};
+
+const onEscapeKeydown = (evt) => {
+  evt.stopPropagation();
+
+  if (isEscapeKey(evt)) {
+
+    body.removeEventListener('keydown', onEscapeKeydown);
+  }
+  closePopup();
+};
+
+const onWindowClick = (evt) => {
   evt.stopPropagation();
   const existElement = document.querySelector('.success') || document.querySelector('.error');
-  const closeButton = existElement.querySelector('button');
-
-  if (evt.target === existElement || evt.target === closeButton || isEscapeKey(evt)) {
-    existElement.remove();
-    body.removeEventListener('click', closeNotification);
-    body.removeEventListener('keydown', closeNotification);
+  existElement.remove();
+  if (evt.target === existElement) {
+    body.removeEventListener('click', onWindowClick);
   }
 };
 
@@ -31,8 +53,9 @@ const appendNotification = (template, trigger = null) => {
   trigger?.();
   const notificationMessage = template.cloneNode(true);
   body.appendChild(notificationMessage);
-  body.addEventListener('click', closeNotification);
-  body.addEventListener('keydown', closeNotification);
+  body.addEventListener('click', onButtonClick);
+  body.addEventListener('keydown', onEscapeKeydown);
+  body.addEventListener('click', onWindowClick);
 };
 
-export {showErrorMessage, closeNotification, appendNotification};
+export {showErrorMessage, appendNotification};
