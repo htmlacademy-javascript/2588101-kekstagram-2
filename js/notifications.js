@@ -43,7 +43,6 @@ const onEscapeKeydown = (evt) => {
 const onWindowClick = (evt) => {
   evt.stopPropagation();
   const existElement = document.querySelector('.success') || document.querySelector('.error');
-  existElement.remove();
   if (evt.target === existElement) {
     body.removeEventListener('click', onWindowClick);
   }
