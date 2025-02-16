@@ -76,8 +76,6 @@ const onFormSubmit = (evt) => {
   sendFormData(evt.target);
 };
 
-uploadForm.addEventListener('submit', onFormSubmit);
-
 function closePhotoEditor () {
   imgUpload.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -96,7 +94,7 @@ const openPhotoEditor = () => {
     body.classList.add('modal-open');
     imgUploadCancel.addEventListener('click', onImgUploadCancelClick);
     document.addEventListener('keydown', onEscapeKeydown);
-
+    uploadForm.addEventListener('submit', onFormSubmit);
     upLoadFile();
   });
 };

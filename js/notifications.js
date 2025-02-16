@@ -15,17 +15,12 @@ const showErrorMessage = () => {
   }, REMOVE_MESSAGE_TIMEOUT);
 };
 
-const closePopup = () => {
-  const existElement = document.querySelector('.success') || document.querySelector('.error');
-  existElement.remove();
-};
-
 const onButtonClick = (evt) => {
   evt.stopPropagation();
   const closeButton = document.querySelector('button');
 
   if (evt.target === closeButton) {
-    body.removeEventListener('click', onButtonClick);
+    return;
   }
   closePopup();
 };
@@ -34,19 +29,27 @@ const onEscapeKeydown = (evt) => {
   evt.stopPropagation();
 
   if (isEscapeKey(evt)) {
-
-    body.removeEventListener('keydown', onEscapeKeydown);
+    closePopup();
   }
-  closePopup();
 };
 
 const onWindowClick = (evt) => {
   evt.stopPropagation();
   const existElement = document.querySelector('.success') || document.querySelector('.error');
   if (evt.target === existElement) {
-    body.removeEventListener('click', onWindowClick);
+    closePopup();
   }
 };
+
+
+function closePopup(){
+  const existElement = document.querySelector('.success') || document.querySelector('.error');
+  body.removeEventListener('click', onButtonClick);
+  body.removeEventListener('keydown', onEscapeKeydown);
+  body.removeEventListener('click', onWindowClick);
+  existElement.remove();
+}
+
 
 const appendNotification = (template, trigger = null) => {
   trigger?.();
