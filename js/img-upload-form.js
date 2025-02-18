@@ -1,6 +1,6 @@
 import {isEscapeKey} from './util.js';
 import {showError, isHashtagInputValid} from './hashtag-validity.js';
-import {resetSlider} from './img-effects.js';
+import {resetSlider, resetScale} from './img-effects.js';
 import {sendData} from './api.js';
 import {appendNotification} from './notifications.js';
 import {upLoadFile} from './img-upload.js';
@@ -84,6 +84,7 @@ function closePhotoEditor () {
   uploadForm.removeEventListener('submit', onFormSubmit);
   imgUploadInput.value = '';
   resetSlider();
+  resetScale();
   uploadForm.reset();
   pristine.reset();
 }

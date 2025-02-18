@@ -44,6 +44,10 @@ const onBiggerScaleButtonClick = () => {
 
 biggerScaleButton.addEventListener('click', onBiggerScaleButtonClick);
 
+const resetScale = function () {
+  imgUploadPreview.style.transform = null;
+};
+
 let currentEffect = 'none';
 
 noUiSlider.create(effectSlider, {
@@ -114,4 +118,4 @@ const resetSlider = () => {
 
 effectsList.addEventListener('change', onToggleEffect);
 
-export {resetSlider};
+export {resetSlider, resetScale};
